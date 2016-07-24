@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<title>购物车</title>
+	<script src="angular.min.1.5.7.js"></script>
+	<script src="shopcar.js"></script>
+	<style>
+		.shopcar{
+			width: 1000px;
+			height: 550px;
+			padding: 20px 10px;
+			border: 1px solid #ccc;
+			margin: 0 auto;
+		}
+		.goods{
+			width: 300px;
+			height: auto;
+			float: left;
+			border-left: 1px solid #ccc;
+			border-top: 1px solid #ccc;
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+		.goods th,.goods td{
+			padding: 10px 10px;
+			text-align: center;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+		.car{
+			width: 500px;
+			height: auto;
+			float: right;
+			border-left: 1px solid #ccc;
+			border-top: 1px solid #ccc;
+			border-collapse: collapse;
+			border-spacing: 0;
+		}
+		.car input{
+			width: 40px;
+		}
+		.car th,.car td{
+			padding: 10px 10px;
+			text-align: center;
+			border-right: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="shopcar" ng-controller="aa" >
+		<table class="goods" >
+			<tr>
+				<th>编号</th>
+				<th>名称</th>
+				<th ng-click="jg('price')">单价</th>
+				<th></th>
+			</tr>
+			<tr>
+				<td>搜索</td>
+				<td colspan="3"><input type="text" ng-model="ss"></td>
+			</tr>
+			
+			<tr ng-repeat="v in good|filter:ss|orderBy:pxx:gg">
+				<td>{{$index+1}}</td>
+				<td>{{v.name}}</td>
+				<td>{{v.price}}</td>
+				<td><button ng-click="buy($index)">购买</button></td>
+
+			</tr>
+		</table>
+		<table class="car" >
+			<tr>
+				<th>编号</th>
+				<th>名称</th>
+				<th ng-click="order('price')">单价</th>
+				<th ng-click="order('num')">数量</th>
+				<th ng-click="order('sum')">总价</th>
+				<th></th>
+			</tr>
+			<tr ng-repeat="v in cc |orderBy:px:ff">
+				<td>{{$index+1}}</td>
+				<td>{{v.name}}</td>
+				<td>{{v.price}}</td>
+				<td><button ng-click="add(v.name)">+</button><input type="text" ng-model="v.num"><button ng-click="jian(v.name)">-</button></td>
+				<td>{{v.num*v.price}}</td>
+				<td><button ng-click="del(v.name)">删除</button></td>
+
+
+			</tr>
+			<tr >
+				<td>总计</td>
+				<td colspan="5">{{sum()}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
